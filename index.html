@@ -3,522 +3,1281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moharos Brigi - Pedikűr | Professzionális Lábápolás</title>
-    <!-- Google Fonts -->
+    <title>MB Pedikűr | Moharos Brigi – Professzionális Lábápolás</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables - Premium Beauty Palette */
+        /* ─── Variables ─────────────────────────────────────────────── */
         :root {
-            --primary-color: #C8A27B; /* Gold/Rose Gold */
-            --primary-dark: #B08B63;
-            --accent-color: #E6D0BA;
-            --text-dark: #2C3E50;
-            --text-light: #5A6C7D;
-            --bg-color: #FCFAF8; /* Soft creamy background */
-            --white: #FFFFFF;
-            --font-main: 'Outfit', sans-serif;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gold:        #BA9863;
+            --gold-mid:    #C8A870;
+            --gold-light:  #D4B896;
+            --gold-pale:   #F0E5D4;
+            --dark:        #1A1716;
+            --dark-mid:    #2E2926;
+            --cream:       #FAFAF7;
+            --warm:        #F4EDE0;
+            --warm-mid:    #EDE3D4;
+            --text:        #2A2220;
+            --text-muted:  #7A6E68;
+            --white:       #FFFFFF;
+            --font:        'Outfit', sans-serif;
+            --ease:        cubic-bezier(0.25, 0.8, 0.25, 1);
+            --radius-sm:   8px;
+            --radius-md:   16px;
+            --radius-lg:   28px;
         }
 
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ─── Reset ─────────────────────────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-dark);
+            font-family: var(--font);
+            background-color: var(--cream);
+            color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
+        img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        a   { text-decoration: none; color: inherit; }
+        ul  { list-style: none; }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Reusable Components */
+        /* ─── Utilities ──────────────────────────────────────────────── */
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
         .btn {
             display: inline-block;
-            background-color: var(--primary-color);
+            background-color: var(--gold);
             color: var(--white);
-            padding: 14px 32px;
+            padding: 14px 36px;
             border-radius: 50px;
+            font-family: var(--font);
+            font-size: 0.85rem;
             font-weight: 600;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(200, 162, 123, 0.4);
+            border: none;
+            transition: background-color 0.3s var(--ease), transform 0.2s var(--ease);
         }
-
         .btn:hover {
-            background-color: var(--primary-dark);
+            background-color: var(--dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(200, 162, 123, 0.6);
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            position: relative;
-            padding-bottom: 15px;
+        .btn-outline {
+            background-color: transparent;
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
+        }
+        .btn-outline:hover {
+            background-color: var(--gold);
+            color: var(--white);
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background-color: var(--primary-color);
-            border-radius: 2px;
+        .label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
         }
 
-        /* Header */
+        /* ─── Header ─────────────────────────────────────────────────── */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
             position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 15px 0;
-        }
-
-        .header-content {
+            top: 0; left: 0; right: 0;
+            z-index: 999;
+            padding: 0 40px;
+            height: 72px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
+            background-color: rgba(250, 250, 247, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(186, 152, 99, 0.12);
+            transition: box-shadow 0.3s;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            letter-spacing: 1px;
+        .logo-img {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            /* Logo has black background — we invert via filter if needed,
+               or keep it as-is for a black-on-cream nav badge */
+            border-radius: 4px;
         }
 
-        .nav-links {
+        nav {
             display: flex;
-            gap: 30px;
             align-items: center;
+            gap: 36px;
         }
 
-        .nav-links a {
+        nav a {
+            font-size: 0.85rem;
             font-weight: 500;
-            transition: var(--transition);
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--gold); }
+
+        .nav-cta {
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
         }
 
-        .nav-links a:hover {
-            color: var(--primary-color);
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
         }
 
-        /* Hero Section */
+        /* ─── Hero ───────────────────────────────────────────────────── */
         .hero {
-            padding: 150px 0 100px;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, rgba(252,250,248,1) 0%, rgba(230,208,186,0.3) 100%);
+            padding-top: 72px;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 200px 1fr 180px;
+            grid-template-rows: 1fr auto;
+            gap: 6px;
+            background-color: var(--warm);
         }
 
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 50px;
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            color: var(--text-dark);
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            margin-bottom: 30px;
-            max-width: 500px;
-        }
-
-        .hero-image {
-            flex: 1;
-            position: relative;
-        }
-
-        /* Placeholder graphic since we don't have the actual photo */
-        .hero-image-placeholder {
-            width: 100%;
-            height: 500px;
-            background-color: #E2E2E2;
-            border-radius: 20px;
+        /* Left tall image */
+        .hero__img-left {
+            grid-column: 1;
+            grid-row: 1 / 3;
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            position: relative;
-            background-image: url('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            /* TODO: replace with actual Brigi photo */
+            background-image: url('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=400&q=80');
             background-size: cover;
             background-position: center;
         }
 
-        /* About Section */
-        .about {
-            padding: 100px 0;
-            background-color: var(--white);
-            text-align: center;
+        /* Center large image with text overlay */
+        .hero__center {
+            grid-column: 2;
+            grid-row: 1;
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            min-height: 520px;
+            /* TODO: replace with salon/pedicure hero photo */
+            background-image: url('https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center top;
         }
 
-        .about p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            color: var(--text-light);
+        .hero__center-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26,23,22,0.7) 0%, rgba(26,23,22,0.1) 55%, transparent 100%);
         }
 
-        /* Services */
-        .services {
-            padding: 100px 0;
+        .hero__heading {
+            position: absolute;
+            bottom: 44px;
+            left: 44px;
+            right: 44px;
+            color: var(--white);
         }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .hero__heading h1 {
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            color: var(--white);
         }
 
-        .service-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            transition: var(--transition);
-            border-bottom: 4px solid transparent;
+        .hero__heading h1 em {
+            font-style: normal;
+            font-weight: 700;
+            color: var(--gold-mid);
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border-bottom: 4px solid var(--primary-color);
+        .hero__heading-sub {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+            max-width: 380px;
         }
 
-        .service-icon {
-            width: 70px;
-            height: 70px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
+        .hero__heading-cta {
+            margin-top: 24px;
+        }
+
+        /* Bottom center text strip */
+        .hero__text-strip {
+            grid-column: 2;
+            grid-row: 2;
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 22px 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+        }
+
+        .hero__text-strip p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.3px;
+            max-width: 480px;
+        }
+
+        /* Right column: two stacked images */
+        .hero__img-right {
+            grid-column: 3;
+            grid-row: 1 / 3;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hero__img-right-top {
+            flex: 1;
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+            overflow: hidden;
+            /* TODO: replace with nail/foot closeup photo */
+            background-image: url('https://images.unsplash.com/photo-1620188400737-a8e8993fc87e?auto=format&fit=crop&w=400&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero__img-right-bottom {
+            flex: 1.4;
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+            overflow: hidden;
+            /* TODO: replace with spa/relaxation photo */
+            background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* ─── Brand Bar ──────────────────────────────────────────────── */
+        .brand-bar {
+            background-color: var(--dark);
+            padding: 14px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
-            color: var(--primary-dark);
-            font-size: 1.5rem;
-            font-weight: bold;
+            gap: 48px;
+            flex-wrap: wrap;
         }
 
-        .service-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+        .brand-bar span {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
         }
 
-        .service-card p {
-            color: var(--text-light);
-            font-size: 0.95rem;
+        .brand-bar .divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            opacity: 0.6;
         }
 
-        /* House Rules */
-        .rules {
+        /* ─── Intro Section ──────────────────────────────────────────── */
+        .intro {
             padding: 100px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .intro__text .big-text {
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            font-weight: 300;
+            line-height: 1.2;
+            color: var(--text);
+        }
+
+        .intro__text .big-text strong {
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .intro__body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .intro__body p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .intro__body .btn {
+            align-self: flex-start;
+            margin-top: 8px;
+        }
+
+        /* ─── Services ───────────────────────────────────────────────── */
+        .services {
+            padding: 80px 0 100px;
             background-color: var(--white);
         }
 
-        .rules-card {
-            background-color: #FEFBF6;
-            border: 2px solid var(--primary-color);
-            border-radius: 20px;
-            padding: 50px;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(200, 162, 123, 0.15);
-            position: relative;
+        .services__header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 48px;
         }
 
-        .rules-card::before {
-            content: '✨';
+        .services__header h2 {
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            font-weight: 300;
+            line-height: 1.15;
+        }
+
+        .services__header h2 strong { font-weight: 700; }
+
+        .services__header p {
+            max-width: 320px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            text-align: right;
+        }
+
+        .services__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-color: var(--cream);
+            transition: transform 0.3s var(--ease);
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .service-card__img {
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .service-card__img img {
+            transition: transform 0.5s var(--ease);
+        }
+
+        .service-card:hover .service-card__img img {
+            transform: scale(1.05);
+        }
+
+        .service-card__body {
+            padding: 28px;
+        }
+
+        .service-card__num {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .service-card__body h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .service-card__body p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ─── Philosophy Banner ──────────────────────────────────────── */
+        .philosophy {
+            background-color: var(--dark);
+            padding: 100px 40px;
+            text-align: center;
+        }
+
+        .philosophy__inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .philosophy .label { color: var(--gold-light); }
+
+        .philosophy h2 {
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 200;
+            font-style: italic;
+            color: var(--white);
+            line-height: 1.35;
+            margin-bottom: 32px;
+        }
+
+        .philosophy h2 em {
+            font-style: normal;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .philosophy p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.8;
+            max-width: 620px;
+            margin: 0 auto 36px;
+        }
+
+        /* ─── Testimonial ────────────────────────────────────────────── */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--warm);
+        }
+
+        .testimonials__header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .testimonials__header h2 {
+            font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+            font-weight: 300;
+        }
+        .testimonials__header h2 strong { font-weight: 700; }
+
+        .testimonials__big-quote {
+            background-color: var(--dark);
+            border-radius: var(--radius-lg);
+            padding: 72px 80px;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials__big-quote::before {
+            content: '"';
             position: absolute;
             top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 2rem;
-            background: var(--white);
-            padding: 0 20px;
+            font-size: 18rem;
+            font-weight: 800;
+            color: rgba(186,152,99,0.08);
+            line-height: 1;
+            pointer-events: none;
         }
 
-        .rules-list {
-            text-align: left;
-            margin-top: 30px;
-            list-style: none;
-        }
-
-        .rules-list li {
-            margin-bottom: 15px;
-            padding-left: 30px;
+        .testimonials__big-quote blockquote {
+            font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+            font-weight: 200;
+            font-style: italic;
+            color: var(--white);
+            line-height: 1.5;
+            max-width: 680px;
+            margin: 0 auto 28px;
             position: relative;
-            color: var(--text-light);
+            z-index: 1;
         }
 
-        .rules-list li::before {
-            content: '✓';
-            color: var(--primary-color);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
+        .testimonials__big-quote .stars {
+            color: var(--gold);
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
         }
 
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
+        .testimonials__big-quote cite {
+            display: block;
+            font-size: 0.85rem;
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            position: relative;
+            z-index: 1;
         }
 
-        .review-grid {
+        .testimonials__grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
 
         .review-card {
-            background: var(--white);
+            background-color: var(--white);
+            border-radius: var(--radius-md);
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+        }
+
+        .review-card .stars {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            margin-bottom: 14px;
+        }
+
+        .review-card blockquote {
+            font-size: 0.95rem;
             font-style: italic;
-            color: var(--text-light);
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 18px;
         }
 
-        .review-author {
-            margin-top: 20px;
-            font-weight: 600;
-            color: var(--text-dark);
+        .review-card cite {
+            font-size: 0.8rem;
             font-style: normal;
-        }
-        
-        .stars {
-            color: var(--primary-color);
-            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text);
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--text-dark);
-            color: var(--white);
-            padding: 60px 0 30px;
+        /* ─── Split Section: About ───────────────────────────────────── */
+        .about-split {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .about-split__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-split__img {
+            height: 520px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            /* TODO: replace with photo of Brigi at work */
+            background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .about-split__text { display: flex; flex-direction: column; gap: 20px; }
+
+        .about-split__text h2 {
+            font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        .about-split__text h2 strong { font-weight: 700; }
+
+        .about-split__text p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .about-split__values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .about-split__value {
+            background-color: var(--warm);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+        }
+
+        .about-split__value span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .about-split__value p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ─── Gallery Strip ──────────────────────────────────────────── */
+        .gallery {
+            padding: 80px 0;
+            background-color: var(--cream);
+            overflow: hidden;
+        }
+
+        .gallery__label {
+            padding: 0 40px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gallery__strip {
+            display: flex;
+            gap: 10px;
+            padding: 0 40px;
+            /* TODO: add more photos for a full gallery strip */
+        }
+
+        .gallery__item {
+            flex: 0 0 280px;
+            height: 340px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* ─── Rules / Házirend ───────────────────────────────────────── */
+        .rules {
+            padding: 100px 0;
+            background-color: var(--warm);
+        }
+
+        .rules__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .rules__text { display: flex; flex-direction: column; gap: 16px; }
+
+        .rules__text h2 {
+            font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        .rules__text h2 strong { font-weight: 700; }
+
+        .rules__text > p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .rules__list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .rules__item {
+            padding: 22px 0;
+            border-bottom: 1px solid var(--warm-mid);
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .rules__item:first-child { border-top: 1px solid var(--warm-mid); }
+
+        .rules__num {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            flex-shrink: 0;
+            padding-top: 3px;
+        }
+
+        .rules__item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .rules__item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* ─── Booking CTA ────────────────────────────────────────────── */
+        .booking {
+            background-color: var(--dark);
+            padding: 120px 40px;
             text-align: center;
         }
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+        .booking__inner {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .booking .label { color: var(--gold-light); }
+
+        .booking h2 {
+            font-size: clamp(2rem, 4vw, 3.6rem);
+            font-weight: 200;
+            font-style: italic;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .booking h2 strong {
+            font-style: normal;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .booking p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.75;
             margin-bottom: 40px;
         }
 
-        .footer-links a {
-            color: #A0B2C4;
-            margin: 0 10px;
-            transition: var(--transition);
+        .booking__note {
+            margin-top: 20px;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.5px;
         }
 
-        .footer-links a:hover {
-            color: var(--primary-color);
+        /* ─── Footer ─────────────────────────────────────────────────── */
+        footer {
+            background-color: var(--dark-mid);
+            padding: 60px 0 30px;
         }
 
-        .copy {
-            color: #798B9F;
-            font-size: 0.9rem;
-            border-top: 1px solid #3A4F63;
-            padding-top: 20px;
+        .footer__inner {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 48px;
         }
 
-        /* Responsive */
+        .footer__brand img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .footer__brand p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.75;
+            max-width: 260px;
+        }
+
+        .footer__col h4 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 18px;
+        }
+
+        .footer__col ul { display: flex; flex-direction: column; gap: 10px; }
+
+        .footer__col ul li a {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.45);
+            transition: color 0.2s;
+        }
+        .footer__col ul li a:hover { color: var(--gold-light); }
+
+        .footer__col .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer__col .contact-icon {
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
+
+        .footer__col .contact-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.45);
+        }
+
+        .footer__bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer__bottom p {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.22);
+        }
+
+        .footer__bottom a {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.22);
+            transition: color 0.2s;
+        }
+        .footer__bottom a:hover { color: var(--gold); }
+
+        /* ─── Responsive ─────────────────────────────────────────────── */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 160px 1fr 140px;
+            }
+
+            .services__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer__inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
+            header { padding: 0 20px; }
+            .container { padding: 0 20px; }
+
+            nav { display: none; }
+            .hamburger { display: flex; }
+
+            .hero {
+                padding-top: 72px;
+                grid-template-columns: 1fr;
+                grid-template-rows: 70vh auto auto;
+                min-height: auto;
             }
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            .nav-links {
-                display: none; /* In a real app, add a hamburger menu */
-            }
-            .rules-card {
-                padding: 30px;
-            }
+            .hero__img-left { display: none; }
+            .hero__center { grid-column: 1; grid-row: 1; border-radius: var(--radius-md); }
+            .hero__text-strip { grid-column: 1; grid-row: 2; border-radius: 0; flex-direction: column; align-items: flex-start; padding: 22px 20px; }
+            .hero__img-right { display: none; }
+            .hero__heading { bottom: 28px; left: 24px; right: 24px; }
+            .hero__heading h1 { font-size: 2.4rem; }
+
+            .intro { grid-template-columns: 1fr; gap: 40px; padding: 60px 0; }
+
+            .services__header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .services__header p { text-align: left; }
+            .services__grid { grid-template-columns: 1fr; }
+
+            .testimonials__big-quote { padding: 44px 28px; }
+            .testimonials__grid { grid-template-columns: 1fr; }
+
+            .about-split__inner { grid-template-columns: 1fr; gap: 40px; }
+            .about-split__img { height: 340px; }
+
+            .gallery__strip { padding: 0 20px; }
+
+            .rules__inner { grid-template-columns: 1fr; gap: 40px; }
+
+            .footer__inner { grid-template-columns: 1fr; gap: 36px; }
+            .footer__bottom { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- ─── HEADER ─────────────────────────────────────────────── -->
     <header>
-        <div class="container header-content">
-            <div class="logo">Moharos Brigi</div>
-            <nav class="nav-links">
-                <a href="#szolgaltatasok">Szolgáltatások</a>
-                <a href="#galeria">Galéria</a>
-                <a href="#hazirend">Házirend</a>
-                <a href="#kapcsolat">Kapcsolat</a>
-                <a href="#booking" class="btn">Időpontot foglalok</a>
-            </nav>
+        <a href="#" aria-label="MB Pedikűr főoldal">
+            <img src="Logo.jpg" alt="MB Pedikűr logó" class="logo-img">
+        </a>
+        <nav>
+            <a href="#szolgaltatasok">Szolgáltatások</a>
+            <a href="#rolam">Rólam</a>
+            <a href="#hazirend">Házirend</a>
+            <a href="#kapcsolat">Kapcsolat</a>
+            <a href="booking.html" class="btn nav-cta">Időpontot foglalok</a>
+        </nav>
+        <div class="hamburger" aria-label="Menü megnyitása" role="button" tabindex="0">
+            <span></span><span></span><span></span>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- ─── HERO ───────────────────────────────────────────────── -->
     <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>Professzionális gondoskodás a lábaidnak</h1>
-                <p>Szakértelem, precizitás és megújulás egy nyugodt, tiszta környezetben. Fedezd fel a fájdalommentes és esztétikus lábápolás élményét! Szikés, gépi és Callux kezelések a lábaid egészségéért.</p>
-                <a href="#booking" class="btn">Időpontot foglalok</a>
-            </div>
-            <div class="hero-image">
-                <div class="hero-image-placeholder"></div>
-            </div>
-        </div>
-    </section>
+        <div class="hero__img-left" role="img" aria-label="Pedikűr kezelés"></div>
 
-    <!-- About Section -->
-    <section class="about" id="rolam">
-        <div class="container">
-            <h2 class="section-title">Miért bízd rám a lábaid egészségét?</h2>
-            <p>Minden nap tiszta, rendezett munkakörnyezetben és szakmailag naprakészen várlak. Számomra a pedikűr nemcsak esztétika, hanem egészségügyi prevenció is. Legyen szó egy frissítő esztétikai kezelésről vagy problémás, fájdalmas bőrkeményedések kezeléséről, a célom, hogy könnyű léptekkel, felfrissülve távozz tőlem.</p>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="szolgaltatasok">
-        <div class="container">
-            <h2 class="section-title">Szolgáltatások</h2>
-            <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
-                    <div class="service-icon">1</div>
-                    <h3>Esztétikai és Gépi Pedikűr</h3>
-                    <p>Lágyabb bőr, formázott körmök és teljes felfrissülés. Ideális választás, ha rendszeresen karbantartanád lábaid szépségét és egészségét.</p>
-                </div>
-                <!-- Service 2 -->
-                <div class="service-card">
-                    <div class="service-icon">2</div>
-                    <h3>Szakpedikűr</h3>
-                    <p>Vastagabb bőrkeményedések, repedt sarkak és makacs bőrproblémák professzionális megoldása biztonságos, hagyományos szikés technikával.</p>
-                </div>
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <div class="service-icon">3</div>
-                    <h3>Problémás láb kezelése</h3>
-                    <p>Benőtt köröm, tyúkszem vagy fájdalmas nyomáspontok szakszerű eltávolítása és ellátása. Ne várj a fájdalommal, kérj segítséget időben!</p>
+        <div class="hero__center" role="img" aria-label="Ápolt lábak">
+            <div class="hero__center-overlay"></div>
+            <div class="hero__heading">
+                <h1>Ápolt lábak.<br><em>Megújult te.</em></h1>
+                <p class="hero__heading-sub">Professzionális pedikűr kezelések egy nyugodt, gondosan rendben tartott környezetben.</p>
+                <div class="hero__heading-cta">
+                    <a href="booking.html" class="btn">Időpontot foglalok</a>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- House Rules Section BEFORE Booking -->
-    <section class="rules" id="hazirend">
-        <div class="container">
-            <div class="rules-card">
-                <h2>Vigyázzunk egymás idejére!</h2>
-                <p style="margin-top: 10px; color: var(--text-light)">Annak érdekében, hogy számodra is nyugodt és kapkodásmentes környezetet biztosíthassak, kérlek vedd figyelembe a szalon szabályait időpontfoglalás előtt.</p>
-                
-                <ul class="rules-list">
-                    <li><strong>Érkezz pontosan!</strong> 10-15 perc késés esetén a kezelési idő sajnos rövidülhet, hogy a következő vendég ne várakozzon.</li>
-                    <li><strong>Lemondás / Módosítás:</strong> Ha közbejött valami, kérlek, legalább 24 órával előbb jelezd! 24 órán belüli lemondás vagy meg nem jelenés esetén a következő alkalommal 50% előleget kérhetek.</li>
-                    <li><strong>Egészség:</strong> Ha betegnek érzed magad vagy fertőző elváltozást / nyílt sebet észlelsz a lábadon, kérlek, jelezd a foglalás előtt!</li>
-                </ul>
+        <div class="hero__text-strip">
+            <p>Szikés, gépi és Callux kezelések &mdash; az esztétikán túl, az egészségért.</p>
+            <a href="#szolgaltatasok" class="btn btn-outline" style="white-space:nowrap; border-color:rgba(186,152,99,0.5); color:var(--gold-light);">Szolgáltatások</a>
+        </div>
 
-                <div style="margin-top: 40px;" id="booking">
-                    <a href="#" class="btn" onclick="alert('Kattintás a gombra: Itt nyílna meg a GoHighLevel pop-up kérdőív!')">Időpontot foglalok - Értettem</a>
-                </div>
-            </div>
+        <div class="hero__img-right">
+            <div class="hero__img-right-top" role="img" aria-label="Köröm részlet"></div>
+            <div class="hero__img-right-bottom" role="img" aria-label="Spa hangulat"></div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Vendégeim mondták</h2>
-            <div class="review-grid">
-                <div class="review-card">
+    <!-- ─── BRAND BAR ──────────────────────────────────────────── -->
+    <div class="brand-bar">
+        <span>Higiénia</span>
+        <div class="divider"></div>
+        <span>Pontosság</span>
+        <div class="divider"></div>
+        <span>Szakértelem</span>
+        <div class="divider"></div>
+        <span>Gondoskodás</span>
+        <div class="divider"></div>
+        <span>MB Pedikűr</span>
+    </div>
+
+    <main>
+
+        <!-- ─── INTRO ──────────────────────────────────────────── -->
+        <section class="container intro" id="bemutatkozas">
+            <div class="intro__text">
+                <span class="label">Értékajánlat</span>
+                <p class="big-text">A pedikűr nem luxus.<br><strong>Egészségügy.</strong></p>
+            </div>
+            <div class="intro__body">
+                <p>Minden nap tiszta, rendezett munkakörnyezetben és szakmailag naprakészen várlak. Számomra a pedikűr nemcsak esztétika, hanem egészségügyi prevenció is.</p>
+                <p>Legyen szó egy frissítő esztétikai kezelésről vagy problémás, fájdalmas bőrkeményedések megoldásáról &mdash; a célom, hogy könnyű léptekkel, felfrissülve távozz.</p>
+                <a href="#rolam" class="btn btn-outline">Többet rólam</a>
+            </div>
+        </section>
+
+        <!-- ─── SERVICES ───────────────────────────────────────── -->
+        <section class="services" id="szolgaltatasok">
+            <div class="container">
+                <div class="services__header">
+                    <div>
+                        <span class="label">Kezelések</span>
+                        <h2>Gondosan összeállított<br><strong>szolgáltatások</strong></h2>
+                    </div>
+                    <p>Minden kezelés az Ön igényeire szabva, higiénikus körülmények között, a legmagasabb szakmai szinten.</p>
+                </div>
+
+                <div class="services__grid">
+                    <div class="service-card">
+                        <div class="service-card__img">
+                            <!-- TODO: replace with actual pedicure photo -->
+                            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=600&h=560&q=80" alt="Esztétikai és gépi pedikűr kezelés" loading="lazy">
+                        </div>
+                        <div class="service-card__body">
+                            <div class="service-card__num">01 — Esztétikai</div>
+                            <h3>Esztétikai és Gépi Pedikűr</h3>
+                            <p>Lágyabb bőr, formázott körmök és teljes felfrissülés. Ideális, ha rendszeresen karbantartanád lábaid szépségét és egészségét.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-card__img">
+                            <!-- TODO: replace with actual szakpedicure photo -->
+                            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&h=560&q=80" alt="Szakpedikűr szikés kezeléssel" loading="lazy">
+                        </div>
+                        <div class="service-card__body">
+                            <div class="service-card__num">02 — Szikés</div>
+                            <h3>Szakpedikűr</h3>
+                            <p>Vastagabb bőrkeményedések, repedt sarkak és makacs bőrproblémák professzionális megoldása biztonságos szikés technikával.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-card__img">
+                            <!-- TODO: replace with actual problemas lab photo -->
+                            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&h=560&q=80" alt="Problémás láb kezelése" loading="lazy">
+                        </div>
+                        <div class="service-card__body">
+                            <div class="service-card__num">03 — Problémás</div>
+                            <h3>Problémás Láb Kezelése</h3>
+                            <p>Benőtt köröm, tyúkszem vagy fájdalmas nyomáspontok szakszerű eltávolítása. Ne várj a fájdalommal &mdash; kérj segítséget időben!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── PHILOSOPHY ─────────────────────────────────────── -->
+        <section class="philosophy">
+            <div class="philosophy__inner">
+                <span class="label">Megközelítés</span>
+                <h2>Nem csak szép &mdash; <em>egészséges.</em><br>Ez a különbség, amit érzeni fogsz.</h2>
+                <p>A lábak egészsége a jólét alapja. Egy jól elvégzett pedikűr megakadályozza a fájdalmat, megelőzi a problémákat, és lehetővé teszi, hogy szó szerint könnyű léptekkel élj.</p>
+                <a href="booking.html" class="btn">Foglalj időpontot</a>
+            </div>
+        </section>
+
+        <!-- ─── TESTIMONIALS ───────────────────────────────────── -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="testimonials__header">
+                    <span class="label">Visszajelzések</span>
+                    <h2>Amit vendégeim <strong>mondtak</strong></h2>
+                </div>
+
+                <div class="testimonials__big-quote">
                     <div class="stars">★★★★★</div>
-                    "Nagyon kedves és profi! Végre megszabadultam a fájdalmas tyúkszememtől. Tiszta, szép környezet, mindenkinek szívből ajánlom!"
-                    <div class="review-author">- Németh K.</div>
+                    <blockquote>
+                        "Végre megszabadultam a fájdalmas tyúkszememtől. Profi, gondos, és a szalon tökéletesen tiszta. Szívből ajánlom mindenkinek, aki igazán jó kézben szeretné érezni magát."
+                    </blockquote>
+                    <cite>— Németh K., visszatérő vendég</cite>
                 </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    "Rendszeresen járok Brigihez esztétikai pedikűrre, nagyon precíz, a körmeim hetekig gyönyörűek. Szuperlaza a hangulat mindig!"
-                    <div class="review-author">- Varga B.</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    "A repedt sarkaim miatt sokáig szégyelltem nyitott cipőt hordani, de Brigi csodát tett a szikés kezeléssel egyetlen alkalom alatt. Köszönöm!"
-                    <div class="review-author">- Szabó J.</div>
+
+                <div class="testimonials__grid">
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <blockquote>"Rendszeresen járok Brigihez esztétikai pedikűrre. Nagyon precíz, a körmeim hetekig gyönyörűek. Szuperlaza a hangulat mindig!"</blockquote>
+                        <cite>— Varga B.</cite>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <blockquote>"A repedt sarkaim miatt sokáig szégyelltem nyitott cipőt hordani, de Brigi csodát tett egyetlen alkalom alatt. Köszönöm!"</blockquote>
+                        <cite>— Szabó J.</cite>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <blockquote>"Mindig pontosan megcsinálja, amit kérek. Soha nem kell várnom, és a kezelés után tényleg más érzéssel lépek ki az ajtón."</blockquote>
+                        <cite>— Kiss M.</cite>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
+        <!-- ─── ABOUT / SPLIT ──────────────────────────────────── -->
+        <section class="about-split" id="rolam">
+            <div class="container">
+                <div class="about-split__inner">
+                    <div class="about-split__img" role="img" aria-label="Moharos Brigi munka közben">
+                        <!-- TODO: replace with actual photo of Brigi -->
+                    </div>
+                    <div class="about-split__text">
+                        <span class="label">Rólam</span>
+                        <h2>Miért bízd<br><strong>rám a lábaid?</strong></h2>
+                        <p>Minden nap azért kelek fel, hogy vendégeim kényelmesebben, magabiztosabban járjanak. A pedikűr számomra egészségügy &mdash; és erre büszke vagyok.</p>
+                        <p>Naprakész szaktudással, gondosan sterilizált eszközökkel és teljes figyelemmel várlak minden alkalommal.</p>
+                        <div class="about-split__values">
+                            <div class="about-split__value">
+                                <span>Higiénia</span>
+                                <p>Minden eszköz sterilizált, egyszer használatos kellékek ahol szükséges.</p>
+                            </div>
+                            <div class="about-split__value">
+                                <span>Pontosság</span>
+                                <p>Az időpontod pontosan kezdődik, és a munkám is precíz.</p>
+                            </div>
+                            <div class="about-split__value">
+                                <span>Szakmai fejlődés</span>
+                                <p>Rendszeres továbbképzések, naprakész módszerek.</p>
+                            </div>
+                            <div class="about-split__value">
+                                <span>Személyes figyelem</span>
+                                <p>Minden vendég egyedi igényeit figyelembe veszem.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── GALLERY ────────────────────────────────────────── -->
+        <section class="gallery">
+            <div class="gallery__label">
+                <span class="label">Galéria</span>
+                <a href="#" style="font-size:0.8rem; color:var(--text-muted); text-decoration:underline; text-underline-offset:3px;">Összes kép</a>
+            </div>
+            <div class="gallery__strip">
+                <!-- TODO: replace all gallery items with real salon/work photos -->
+                <div class="gallery__item" style="background-image: url('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=600&q=80');" role="img" aria-label="Pedikűr kezelés 1"></div>
+                <div class="gallery__item" style="background-image: url('https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80');" role="img" aria-label="Pedikűr kezelés 2"></div>
+                <div class="gallery__item" style="background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80');" role="img" aria-label="Kezelés 3"></div>
+                <div class="gallery__item" style="background-image: url('https://images.unsplash.com/photo-1620188400737-a8e8993fc87e?auto=format&fit=crop&w=600&q=80');" role="img" aria-label="Köröm részlet"></div>
+                <div class="gallery__item" style="background-image: url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80');" role="img" aria-label="Szalon hangulat"></div>
+            </div>
+        </section>
+
+        <!-- ─── RULES / HÁZIREND ───────────────────────────────── -->
+        <section class="rules" id="hazirend">
+            <div class="container">
+                <div class="rules__inner">
+                    <div class="rules__text">
+                        <span class="label">Házirend</span>
+                        <h2>Vigyázzunk<br><strong>egymás idejére!</strong></h2>
+                        <p>Annak érdekében, hogy számodra is nyugodt és kapkodásmentes környezetet biztosíthassak, kérem, vedd figyelembe az alábbi pontokat időpontfoglalás előtt.</p>
+                        <a href="Házirend.pdf" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:8px;">Teljes Házirend (PDF)</a>
+                    </div>
+                    <div>
+                        <ul class="rules__list">
+                            <li class="rules__item">
+                                <span class="rules__num">01</span>
+                                <div>
+                                    <h4>Érkezz pontosan!</h4>
+                                    <p>10&ndash;15 perc késés esetén a kezelési idő sajnos rövidülhet, hogy a következő vendég ne várakozzon.</p>
+                                </div>
+                            </li>
+                            <li class="rules__item">
+                                <span class="rules__num">02</span>
+                                <div>
+                                    <h4>Lemondás / Módosítás</h4>
+                                    <p>Kérlek, legalább 24 órával előbb jelezd! 24 órán belüli lemondás vagy meg nem jelenés esetén a következő alkalommal 50% előleget kérhetek.</p>
+                                </div>
+                            </li>
+                            <li class="rules__item">
+                                <span class="rules__num">03</span>
+                                <div>
+                                    <h4>Egészségi állapot</h4>
+                                    <p>Ha betegnek érzed magad, vagy fertőző elváltozást / nyílt sebet észlelsz a lábadon, kérlek, jelezd a foglalás előtt!</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── BOOKING CTA ────────────────────────────────────── -->
+        <section class="booking" id="booking">
+            <div class="booking__inner">
+                <span class="label">Foglalás</span>
+                <h2>Készen állsz egy<br><strong>frissítő kezelésre?</strong></h2>
+                <p>Foglalj időpontot most, és tapasztald meg a professzionális pedikűr különbségét. Az első lépés csak egy kattintás.</p>
+                <!-- TODO: Replace onclick with actual GoHighLevel popup embed -->
+                <a href="booking.html" class="btn" style="font-size:0.95rem; padding:18px 48px;">
+                    Szolgáltatások kiválasztása &rarr;
+                </a>
+                <p class="booking__note">Az időpontfoglalás a házirend elfogadásával együtt érvényes.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ─── FOOTER ─────────────────────────────────────────────── -->
     <footer id="kapcsolat">
         <div class="container">
-            <div class="footer-content">
-                <div style="text-align: left;">
-                    <h3 style="color: white; margin-bottom: 10px;">Moharos Brigi - Pedikűr</h3>
-                    <p style="color: #A0B2C4;">Professzionális lábápolás</p>
-                    <p style="color: #A0B2C4; margin-top: 5px;">📍 [Pontos Cím Helye]</p>
-                    <p style="color: #A0B2C4;">📞 [Telefonszám]</p>
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <img src="Logo.jpg" alt="MB Pedikűr logó">
+                    <p>Professzionális lábápolás. Szakértelem, higiénia és személyes figyelem minden alkalommal.</p>
                 </div>
-                <div class="footer-links">
-                    <a href="#">Kezdőlap</a>
-                    <a href="#szolgaltatasok">Szolgáltatások</a>
-                    <a href="Házirend.pdf" target="_blank">A Teljes Házirend Szövege</a>
-                    <a href="#">Adatkezelési Tájékoztató</a>
+
+                <div class="footer__col">
+                    <h4>Navigáció</h4>
+                    <ul>
+                        <li><a href="#bemutatkozas">Bemutatkozás</a></li>
+                        <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+                        <li><a href="#rolam">Rólam</a></li>
+                        <li><a href="#hazirend">Házirend</a></li>
+                        <li><a href="booking.html">Foglalás</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__col">
+                    <h4>Kapcsolat</h4>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span class="contact-text">2060 Bicske, Kossuth utca 61/a Exclusive Szépségszalon</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <span class="contact-text">+36307518009</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <span class="contact-text">brigittamoharos@gmail.com</span>
+                    </div>
                 </div>
             </div>
-            <div class="copy">
-                &copy; 2026 Moharos Brigi - Pedikűr. Minden jog fenntartva.
+
+            <div class="footer__bottom">
+                <p>&copy; 2026 Moharos Brigi &ndash; MB Pedikűr. Minden jog fenntartva.</p>
+                <div style="display:flex; gap:24px;">
+                    <a href="Házirend.pdf" target="_blank" rel="noopener">Házirend</a>
+                    <a href="#">Adatkezelési Tájékoztató</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <script>
+        // Hamburger menu toggle (mobile)
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('nav');
+        hamburger.addEventListener('click', () => {
+            const open = nav.style.display === 'flex';
+            nav.style.display = open ? 'none' : 'flex';
+            nav.style.flexDirection = 'column';
+            nav.style.position = 'fixed';
+            nav.style.top = '72px';
+            nav.style.left = '0';
+            nav.style.right = '0';
+            nav.style.background = 'rgba(250,250,247,0.98)';
+            nav.style.padding = '24px 20px';
+            nav.style.gap = '20px';
+            nav.style.zIndex = '998';
+        });
+
+        // Close mobile menu on link click
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.style.display = 'none';
+            });
+        });
+
+        // Header shadow on scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            header.style.boxShadow = window.scrollY > 10
+                ? '0 4px 24px rgba(0,0,0,0.08)'
+                : 'none';
+        });
+    </script>
 </body>
 </html>
