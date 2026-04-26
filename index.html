@@ -921,6 +921,31 @@
             .footer__inner { grid-template-columns: 1fr; gap: 36px; }
             .footer__bottom { flex-direction: column; align-items: flex-start; }
         }
+        /* ─── Modal ──────────────────────────────────────────────────── */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(26,23,22,0.7);
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
+            padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-box {
+            background: var(--cream); border-radius: var(--radius-md); padding: 40px;
+            width: 100%; max-width: 500px; position: relative;
+            transform: translateY(20px); transition: transform 0.3s var(--ease);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-close {
+            position: absolute; top: 16px; right: 20px; background: none; border: none;
+            font-size: 2.2rem; color: var(--text-muted); cursor: pointer; line-height: 1;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--gold); }
+        .modal-content { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-top: 16px; }
+        .modal-content p { margin-bottom: 8px; }
+
     </style>
 </head>
 <body>
@@ -934,6 +959,7 @@
             <a href="#szolgaltatasok">Szolgáltatások</a>
             <a href="#rolam">Rólam</a>
             <a href="#hazirend">Házirend</a>
+            <a href="blog.html">Blog</a>
             <a href="#kapcsolat">Kapcsolat</a>
             <a href="booking.html" class="btn nav-cta">Időpontot foglalok</a>
         </nav>
@@ -964,7 +990,6 @@
 
         <div class="hero__img-right">
             <div class="hero__img-right-top" role="img" aria-label="Köröm részlet"></div>
-            <div class="hero__img-right-bottom" role="img" aria-label="Spa hangulat"></div>
         </div>
     </section>
 
@@ -1008,7 +1033,7 @@
                 </div>
 
                 <div class="services__grid">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openModal('esztetikai')" style="cursor: pointer;">
                         <div class="service-card__img">
                             <!-- TODO: replace with actual pedicure photo -->
                             <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=600&h=560&q=80" alt="Esztétikai és gépi pedikűr kezelés" loading="lazy">
@@ -1020,7 +1045,7 @@
                         </div>
                     </div>
 
-                    <div class="service-card">
+                    <div class="service-card" onclick="openModal('szikes')" style="cursor: pointer;">
                         <div class="service-card__img">
                             <!-- TODO: replace with actual szakpedicure photo -->
                             <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&h=560&q=80" alt="Szakpedikűr szikés kezeléssel" loading="lazy">
@@ -1032,7 +1057,7 @@
                         </div>
                     </div>
 
-                    <div class="service-card">
+                    <div class="service-card" onclick="openModal('problemas')" style="cursor: pointer;">
                         <div class="service-card__img">
                             <!-- TODO: replace with actual problemas lab photo -->
                             <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&h=560&q=80" alt="Problémás láb kezelése" loading="lazy">
@@ -1215,6 +1240,7 @@
                         <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
                         <li><a href="#rolam">Rólam</a></li>
                         <li><a href="#hazirend">Házirend</a></li>
+                        <li><a href="blog.html">Blog</a></li>
                         <li><a href="booking.html">Foglalás</a></li>
                     </ul>
                 </div>
@@ -1246,7 +1272,57 @@
         </div>
     </footer>
 
+    <!-- ─── MODAL OVERLAY ────────────────────────────────────────── -->
+    <div class="modal-overlay" id="service-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()" aria-label="Bezárás">&times;</button>
+            <span class="label" id="modal-label" style="color:var(--gold);">Kezelés bemutatása</span>
+            <h2 id="modal-title" style="font-size:2rem; font-weight:300; margin-bottom:10px;">Szolgáltatás Neve</h2>
+            <div class="modal-content" id="modal-desc">
+                Ide jön a részletes leírás...
+            </div>
+            <a href="booking.html" class="btn" style="width: 100%; text-align: center; margin-top: 24px; padding:16px;">Tovább az időpontfoglaláshoz &rarr;</a>
+        </div>
+    </div>
+
     <script>
+        // Modal Logic
+        const modal = document.getElementById('service-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+
+        const serviceDetails = {
+            'esztetikai': {
+                title: 'Esztétikai és Gépi Pedikűr',
+                desc: '<p>A rendszeres ápolás garantálja, hogy a lábad egészséges és vonzó maradjon. A kezelés tartalmazza a láb áztatását, a bőrkeményedések szakszerű és gyengéd eltávolítását géppel, a körömágyak kezelését, valamint a körmök professzionális formázását.</p><p>Emellett egy frissítő és hidratáló krémezéssel zárjuk a folyamatot, így könnyű és puha tapintású lábakkal távozhatsz. A végeredmény garantáltan látványos és hosszan tartó.</p>'
+            },
+            'szikes': {
+                title: 'Szakpedikűr',
+                desc: '<p>Ha makacsabb problémákkal küzdesz, mint amilyenek az elvastagodott bőrkeményedések vagy repedezett sarkak, ez a kezelés a tökéletes választás. Szikés technikával, nagyfokú tapintattal és precizitással távolítom el a zavaró szarurétegeket.</p><p>Kiemelt figyelmet fordítunk a sebmentes és fájdalommentes végeredményre, amit egy különleges mélyhidratáló ápolás követ a tartós hatás érdekében.</p>'
+            },
+            'problemas': {
+                title: 'Problémás Láb Kezelése',
+                desc: '<p>A fájdalommal járó lábproblémák megkeseríthetik a mindennapokat – de nem kell együtt élned velük. Legyen szó akár egy gyulladt, benőtt körömről vagy nyomás alatt lévő tyúkszemről, gyors, szakszerű és biztonságos beavatkozást végzek.</p><p>Speciális szerszámokkal tehermentesítjük az érintett területet és visszaadjuk a fájdalommentes járás élményét azonnal, már a kezelés befejeztével.</p>'
+            }
+        };
+
+        function openModal(id) {
+            const data = serviceDetails[id];
+            if(data) {
+                modalTitle.textContent = data.title;
+                modalDesc.innerHTML = data.desc;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) closeModal();
+        });
+
         // Hamburger menu toggle (mobile)
         const hamburger = document.querySelector('.hamburger');
         const nav = document.querySelector('nav');
