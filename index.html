@@ -157,39 +157,24 @@
 
         /* ─── Hero ───────────────────────────────────────────────────── */
         .hero {
-            padding-top: 72px;
+            padding: 80px 20px 20px 20px;
             min-height: 100vh;
-            display: grid;
-            grid-template-columns: 200px 1fr 180px;
-            grid-template-rows: 1fr auto;
-            gap: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             background-color: var(--warm);
-        }
-
-        /* Left tall image */
-        .hero__img-left {
-            grid-column: 1;
-            grid-row: 1 / 3;
-            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-            overflow: hidden;
-            /* TODO: replace with actual Brigi photo */
-            background-image: url('./images/service_01.png');
-            background-size: cover;
-            background-position: center;
         }
 
         /* Center large image with text overlay */
         .hero__center {
-            grid-column: 2;
-            grid-row: 1;
+            flex: 1;
             position: relative;
             border-radius: var(--radius-md);
             overflow: hidden;
             min-height: 520px;
-            /* TODO: replace with salon/pedicure hero photo */
             background-image: url('./Hero_kep/pedicures_2023-12-11-163018_uxqw.jpg');
             background-size: cover;
-            background-position: center top;
+            background-position: center 30%;
         }
 
         .hero__center-overlay {
@@ -234,8 +219,6 @@
 
         /* Bottom center text strip */
         .hero__text-strip {
-            grid-column: 2;
-            grid-row: 2;
             background-color: var(--dark);
             color: var(--white);
             padding: 22px 44px;
@@ -253,24 +236,7 @@
             max-width: 480px;
         }
 
-        /* Right column: two stacked images */
-        .hero__img-right {
-            grid-column: 3;
-            grid-row: 1 / 3;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .hero__img-right-top {
-            flex: 1;
-            border-radius: var(--radius-md) 0 0 var(--radius-md);
-            overflow: hidden;
-            /* TODO: replace with nail/foot closeup photo */
-            background-image: url('./Hero_kep/pedicures_2023-12-11-163018_uxqw.jpg');
-            background-size: cover;
-            background-position: center;
-        }
+        /* Right column: removed */
 
         .hero__img-right-bottom {
             flex: 1.4;
@@ -970,8 +936,6 @@
 
     <!-- ─── HERO ───────────────────────────────────────────────── -->
     <section class="hero">
-        <div class="hero__img-left" role="img" aria-label="Pedikűr kezelés"></div>
-
         <div class="hero__center" role="img" aria-label="Ápolt lábak">
             <div class="hero__center-overlay"></div>
             <div class="hero__heading">
@@ -986,10 +950,6 @@
         <div class="hero__text-strip">
             <p>Szikés, gépi és Callux kezelések &mdash; az esztétikán túl, az egészségért.</p>
             <a href="#szolgaltatasok" class="btn btn-outline" style="white-space:nowrap; border-color:rgba(186,152,99,0.5); color:var(--gold-light);">Szolgáltatások</a>
-        </div>
-
-        <div class="hero__img-right">
-            <div class="hero__img-right-top" role="img" aria-label="Köröm részlet"></div>
         </div>
     </section>
 
